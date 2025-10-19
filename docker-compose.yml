@@ -1,15 +1,23 @@
 services:
   graphql:
     build:
-      context: ./services/graphql
-      dockerfile: Dockerfile.dev
+      context: .
+      dockerfile: ./services/graphql/Dockerfile.dev
     ports:
       - 3000:3000
     volumes:
-      - ./services/graphql:/app
+      - ./services/graphql:/grpc-sample/services/graphql
+      - ./proto:/grpc-sample/proto
     depends_on:
       - account
       - product
+    environment:
+      - DB_HOST=account-db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=account
+      - GRPC_ADDR=0.0.0.0:9090
   account:
     build:
       context: .
@@ -27,7 +35,7 @@ services:
       - DB_USER=postgres
       - DB_PASSWORD=postgres
       - DB_NAME=account
-      - GRPC_ADDR=0.0.0.0:9090
+      - GRPC_ADDR=0.0.0.0:9091
   account-db:
     image: postgres:15
     environment:
@@ -45,14 +53,22 @@ services:
       - account-db:/var/lib/postgresql/data
   product:
     build:
-      context: ./services/product
-      dockerfile: Dockerfile.dev
+      context: .
+      dockerfile: ./services/product/Dockerfile.dev
     ports:
       - 3002:3002
     volumes:
-      - ./services/product:/app
+      - ./services/product:/grpc-sample/services/product
+      - ./proto:/grpc-sample/proto
     depends_on:
       - product-db
+    environment:
+      - DB_HOST=product-db
+      - DB_PORT=5433
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=product
+      - GRPC_ADDR=0.0.0.0:9092
   product-db:
     image: postgres:15
     environment:

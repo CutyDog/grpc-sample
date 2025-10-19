@@ -1,4 +1,4 @@
-.PHONY: migrate
+.PHONY: migrate-all migrate-to migrate-status rollback-last rollback-to
 
 # マイグレーションコマンドのビルド
 migrate-build:
@@ -16,3 +16,16 @@ migrate-to:
 # マイグレーション状態を確認
 migrate-status: migrate-build
 	./migrate -status
+
+# ロールバックコマンドのビルド
+rollback-build:
+	go build -o rollback cmd/rollback/main.go
+
+# 最後のマイグレーションをロールバック
+rollback-last: rollback-build
+	./rollback -last
+
+# 指定したマイグレーションまでロールバック
+rollback-to:
+	@read -p "ロールバック対象のマイグレーションIDを入力してください: " migration_id; \
+	./rollback -to $$migration_id

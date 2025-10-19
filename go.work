@@ -1,8 +1,0 @@
-go 1.24.5
-
-use (
-  ./proto
-	./services/account
-	./services/product
-	./services/graphql
-)

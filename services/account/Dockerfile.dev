@@ -13,18 +13,21 @@ WORKDIR /grpc-sample
 # Copy proto files and configuration
 COPY proto /grpc-sample/proto
 
-# Initialize proto module
+# Initialize proto module and generate code
 WORKDIR /grpc-sample/proto
 RUN go mod download
 
 # Generate proto files using buf
 RUN buf generate
 
-# Copy service files
+# Copy account service files
 WORKDIR /grpc-sample/services/account
 COPY services/account/go.mod services/account/go.sum ./
-RUN go mod download
 
+# Copy all service files before go mod download
 COPY services/account/ ./
+
+# Download dependencies and tidy
+RUN go mod download && go mod tidy
 
 CMD ["air", "-c", ".air.toml"]
