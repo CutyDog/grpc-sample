@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package account.v1;
+option go_package = "github.com/CutyDog/grpc-sample/proto/account/v1;accountv1";
+
+import "google/protobuf/timestamp.proto";
+
+service AccountService {
+  rpc GetAccount(GetAccountRequest) returns (GetAccountResponse);
+}
+
+message GetAccountRequest {
+  oneof key {
+    int64 id   = 1;  // users.id (BIGINT)
+    string uid = 2;  // Firebase Auth UID
+  }
+}
+
+message GetAccountResponse {
+  Account account = 1;
+}
+
+message Account {
+  int64 id = 1;
+  string uid = 2;
+  google.protobuf.Timestamp created_at = 3;
+  google.protobuf.Timestamp updated_at = 4;
+}
