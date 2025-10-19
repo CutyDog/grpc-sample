@@ -1,0 +1,7 @@
+# Generated proto files
+proto/gen/
+
+# Go workspace
+go.work
+go.work.sum
+

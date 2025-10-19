@@ -1,3 +1,6 @@
 # Air temporary files
 /tmp/
 tmp/
+
+migrate
+rollback
