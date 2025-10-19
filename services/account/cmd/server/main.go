@@ -7,6 +7,7 @@ import (
 
 	accountv1 "github.com/CutyDog/grpc-sample/proto/gen/account/v1"
 	"github.com/CutyDog/grpc-sample/services/account/internal/db"
+	"github.com/CutyDog/grpc-sample/services/account/internal/repo"
 	"github.com/CutyDog/grpc-sample/services/account/internal/server"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
@@ -15,9 +16,13 @@ import (
 func main() {
 	db.ConnectDB()
 
+	// Initialize repository
+	accountRepo := repo.NewAccountRepository(db.DB)
+
+	// Setup gRPC server
 	addr := os.Getenv("GRPC_ADDR")
 	s := grpc.NewServer()
-	accountv1.RegisterAccountServiceServer(s, server.NewAccountServer(db.DB))
+	accountv1.RegisterAccountServiceServer(s, server.NewAccountServer(accountRepo))
 	reflection.Register(s)
 
 	lis, err := net.Listen("tcp", addr)

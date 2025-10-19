@@ -1,0 +1,11 @@
+type Query {
+  account(uid: String!): Account
+}
+
+type Account {
+  id: ID!
+  uid: String!
+  createdAt: String!
+  updatedAt: String!
+}
+
