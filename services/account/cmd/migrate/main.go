@@ -6,7 +6,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/CutyDog/grpc-sample/account/internal/db"
+	"github.com/CutyDog/grpc-sample/services/account/internal/db"
 )
 
 func main() {

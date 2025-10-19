@@ -12,12 +12,13 @@ services:
       - product
   account:
     build:
-      context: ./services/account
-      dockerfile: Dockerfile.dev
+      context: .
+      dockerfile: ./services/account/Dockerfile.dev
     ports:
       - 3001:3001
     volumes:
-      - ./services/account:/app
+      - ./services/account:/grpc-sample/services/account
+      - ./proto:/grpc-sample/proto
     depends_on:
       - account-db
     environment:

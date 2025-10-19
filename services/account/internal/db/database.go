@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/CutyDog/grpc-sample/account/internal/model"
+	"github.com/CutyDog/grpc-sample/services/account/internal/model"
 
 	"github.com/go-gormigrate/gormigrate/v2"
 	"gorm.io/driver/postgres"

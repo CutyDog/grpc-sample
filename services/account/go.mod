@@ -1,12 +1,14 @@
-module github.com/CutyDog/grpc-sample/account
+module github.com/CutyDog/grpc-sample/services/account
 
 go 1.24.5
 
 require (
+	github.com/CutyDog/grpc-sample/proto v0.0.0
 	github.com/go-gormigrate/gormigrate/v2 v2.1.4
 	gorm.io/driver/postgres v1.6.0
 	gorm.io/gorm v1.26.1
 	google.golang.org/grpc v1.76.0
+	google.golang.org/protobuf v1.34.1
 )
 
 require (
